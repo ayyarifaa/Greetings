@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> For You 💗</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(270deg, #ffc0cb, #e8f5e9, #ffd6e0);
+      background-size: 600% 600%;
+      animation: bgMove 12s ease infinite;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: #444;
+      padding: 20px;
+      transition: all 0.6s ease;
+    }
+
+    .active {
+      display: flex;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);} 
+      to { opacity: 1; transform: translateY(0);} 
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #ff8fab;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ff6f91;
+    }
+
+    .paper {
+      background: #fff0f5;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      transform: rotateX(90deg);
+      transform-origin: top;
+      transition: transform 0.8s ease;
+    }
+
+    .paper.open {
+      transform: rotateX(0deg);
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 26px;
+      animation: floatUp 2.5s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-300px) scale(1.6); opacity: 0; }
+    }
+
+    .floating {
+      position: absolute;
+      top: -50px;
+      font-size: 20px;
+      animation: fall linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+
+    video {
+      width: 320px;
+      border-radius: 20px;
+      margin-top: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    h1, h2 {
+      color: #ff6f91;
+    }
+  
+    /* running text */
+    .marquee {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      pointer-events: none;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 12s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* subtle glowing text */
+    .glow {
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 5px #ffb6c1; }
+      to { text-shadow: 0 0 15px #98fb98; }
+    }
+
+  </style>
+</head>
+<body onclick="spawnEmoji(event)">
+
+<div class="marquee">
+  <span>Hi! Greetings from me, Ayya Arifa ✨</span>
+</div>
+
+<audio id="bgm" loop>
+  <source src="E:\Downloads\Sal Priadi - Mesra-mesraannya kecil-kecilan dulu (Official Music Video) [aHxxbTq0TXE].mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  window.addEventListener("click", () => {
+    const music = document.getElementById("bgm");
+    if (music.paused) music.play();
+  });
+
+  // floating background elements
+  const bgEmojis = ["💗","💚","🦋","✨"];
+  for (let i = 0; i < 20; i++) {
+    const el = document.createElement("div");
+    el.className = "floating";
+    el.innerText = bgEmojis[Math.floor(Math.random()*bgEmojis.length)];
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (5 + Math.random()*5) + "s";
+    el.style.fontSize = (16 + Math.random()*20) + "px";
+    document.body.appendChild(el);
+  }
+</script>
+
+<div class="slide active" id="slide1">
+  <h1 class="glow">HI MAS RADITH 💗</h1>
+  <p>I made this just for you, btw...</p>
+  <button onclick="nextSlide(1)">tap me 🥺</button>
+</div>
+
+<div class="slide" id="slide2">
+  <div class="paper" id="paper2">
+    <p>
+      I don’t know why, but you crossed my mind tonight…
+      And i felt like saying this, just quietly.
+      <br><br>
+      Thank you, for coming into my life the way you did.
+      It’s only been a couple of months, but somehow it feels like you’ve become someone really special to me. Jiaakhh
+      <br><br>
+      I still find it crazy how we met, how we got this close, how everything just happened so naturally…
+      And honestly, I really glad it did.
+      <br><br>
+      Then, maybe this sounds a little crazy… but i think a part of me already got used to you being here. 💗
+    </p>
+  </div>
+  <button onclick="openPaper('paper2')">open letter 💌</button>
+  <button onclick="nextSlide(2)">next ➜</button>
+</div>
+
+<div class="slide" id="slide3">
+  <div class="paper" id="paper3">
+    <h2> FOR YOUuuO </h2>
+    <p>
+      i know i’m not perfect, and maybe i can be a little messy sometimes…
+      <br><br>
+      But one thing i’m sure of, i genuinely care about you.
+      Not just in a simple way… but in a way that makes me think about you in the middle of random moments.
+      Then... i made this Web bcs maybe sometimes you feels like "boring?" so you can OPEN THIS WEB and hear this Song that i choose for you, and read this letter that i wrote for you WKWKWKWWK
+      <br><br>
+         Whatever you’ve been through before this,
+    all the things that shaped you into who you are now…
+    they matter. And they show.
+    There are people around you who genuinely care about you, ya?
+    Who are rooting for you in their own quiet ways.
+      <br><br>
+      I'm so glad to have you, Mas Radit 💗
+    </p>
+  </div>
+  <button onclick="openPaper('paper3')">open 💗</button>
+  <button onclick="nextSlide(3)">next ➜</button>
+</div>
+
+<div class="slide" id="slide4">
+  <h2> Last.. </h2>
+  <p>
+    Hope this life treats you gently,
+    Your plans work out the way you want them to,
+    and  you always find reasons to smile yapp Munchkin.
+
+    <br><br>
+    you deserve that… and more.
+    <br><br>
+    I hope your days get lighter,
+your plans unfold the way you want them to,
+and life meets you with more good things than you expect.
+
+you deserve that.
+
+and yupp… just in case you forget,
+someone out here is wishing you well 🤍
+  </p>
+</div>
+
+<script>
+  function nextSlide(n) {
+    document.getElementById("slide" + n).classList.remove("active");
+    document.getElementById("slide" + (n + 1)).classList.add("active");
+  }
+
+  function openPaper(id) {
+    document.getElementById(id).classList.add("open");
+  }
+
+  function spawnEmoji(e) {
+    const emojis = ["💗","💚","🦋","🐝","💕","🎈"];
+    const el = document.createElement("div");
+    el.className = "emoji";
+    el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    el.style.left = e.clientX + "px";
+    el.style.top = e.clientY + "px";
+
+    document.body.appendChild(el);
+
+    setTimeout(() => el.remove(), 2500);
+  }
+</script>
+
+</body>
+</html>
